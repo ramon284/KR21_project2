@@ -1,5 +1,6 @@
 from typing import List, Tuple, Dict
 import networkx as nx
+from networkx.utils import UnionFind
 import matplotlib.pyplot as plt
 from pgmpy.readwrite import XMLBIFReader
 import math
@@ -18,7 +19,6 @@ class BayesNet:
     def create_bn(self, variables: List[str], edges: List[Tuple[str, str]], cpts: Dict[str, pd.DataFrame]) -> None:
         """
         Creates the BN according to the python objects passed in.
-        
         :param variables: List of names of the variables.
         :param edges: List of the directed edges.
         :param cpts: Dictionary of conditional probability tables.
@@ -76,6 +76,9 @@ class BayesNet:
         self.create_bn(variables, edges, cpts)
 
     # METHODS THAT MIGHT ME USEFUL -------------------------------------------------------------------------------------
+
+    def get_parents(self, variable: str) -> List[str]:
+        return [c for c in self.structure.predecessors(variable)]
 
     def get_children(self, variable: str) -> List[str]:
         """
@@ -226,3 +229,17 @@ class BayesNet:
         :param edge: Edge to be deleted (e.g. ('A', 'B')).
         """
         self.structure.remove_edge(edge[0], edge[1])
+        
+    def del_all_edges_from(self, ebunch: Tuple[str, str]) -> None:
+        self.structure.remove_edges_from(ebunch) 
+        ##maybe turn Tuple into list[Tuple[str,str]]
+        
+        
+    def get_outer_edges(self, node: str) -> Tuple[str, str]: 
+        return [edge for edge in self.structure.out_edges(node)]
+
+    def find_unions(self) -> None:
+        return UnionFind(set(self.get_all_variables()))
+    
+    def weakly_con_comp(self) -> List[str]:
+        return nx.weakly_connected_components(self.structure)

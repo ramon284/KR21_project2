@@ -1,13 +1,9 @@
 from typing import Union
 from BayesNet import BayesNet
-<<<<<<< Updated upstream
-
 import ordering_func
-=======
 import dsep
 import copy
 import pruner
->>>>>>> Stashed changes
 
 class BNReasoner:
     def __init__(self, net: Union[str, BayesNet]):

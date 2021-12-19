@@ -1,6 +1,5 @@
 import copy
 from typing import List, Union
-from BNReasoner import BNReasoner
 from BayesNet import BayesNet
 
 def prune(network: BayesNet, evidence: set, query: set) -> None: 
@@ -30,8 +29,7 @@ def prune_network(network: BayesNet, evidence: set, query: set) -> None:
     prune(network, evidence, query)
     prune_edges(network, evidence)
 
-query = {"X"}
-evidence = {"J"}
+
 
 #bnet = BayesNet() ## make empty network
 #bnet.load_from_bifxml(file_path='testing/lecture_example2.BIFXML') ## fill that bitch up with data

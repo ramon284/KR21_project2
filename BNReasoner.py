@@ -28,17 +28,19 @@ class BNReasoner:
         if (order_type == 'random'):
             output = ordering_func.random_sort(x)
         elif (order_type == 'min-degree'):
-            graph = self.bn.get_interaction_graph()
+            graph = network.get_interaction_graph()
             output = ordering_func.sort_min_degree(graph,x)
         else:
-            graph = self.bn.get_interaction_graph()
+            graph = network.get_interaction_graph()
             output = ordering_func.sort_min_fill(graph,x)
         
         return output
     
-    def networkPruning(self, network: BayesNet, evidence: set, query: set) -> None: 
+    def networkPruning(self, network: BayesNet, evidence: set, query: set) -> BayesNet: 
         ## set of variables Q and evidence E
-        pruner.prune_network((network, evidence, query))
+        pruned_network = copy.deepcopy(network)
+        pruner.prune_network(pruned_network, evidence, query)
+        return pruned_network
     
     def marginalDistributions(self, network, q, e):
         return
@@ -51,10 +53,9 @@ class BNReasoner:
 
     # TODO: This is where your methods should go
 
-filePath = 'testing/dog_problem.BIFXML' ## filepath
-bnet = BNReasoner(filePath) ## make empty network
-x, z, y = {"light-on"}, {"family-out"}, {"dog-out"}
-bnet.bn.draw_structure() ## draw the graph
-bnet.dSeperator(bnet, x,z,y)
-bnet.get_interaction_graph() ## get interaction graph (idk what this does tbh)
-bnet.draw_structure() ## draw the graph
+#filePath = 'testing/dog_problem.BIFXML' ## filepath
+#bnet = BNReasoner(filePath) ## make empty network
+#x, z, y = {"light-on"}, {"family-out"}, {"dog-out"}
+#bnet.bn.draw_structure() ## draw the graph
+#print(bnet.dSeperator(bnet, x,z,y))
+#bnet.draw_structure() ## draw the graph

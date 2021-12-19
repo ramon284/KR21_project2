@@ -4,8 +4,6 @@ from collections import deque
 from networkx.utils import UnionFind
 import pruner
 
-filePath = 'testing/dog_problem.BIFXML' ## filepath
-
 
 def check_dseperated(network : BayesNet, x: set,z: set,y: set) -> bool:
     # union = x.union(y).union(z)

@@ -33,9 +33,9 @@ def prune_network(network: BayesNet, evidence: set, query: set) -> None:
 query = {"X"}
 evidence = {"J"}
 
-bnet = BayesNet() ## make empty network
-bnet.load_from_bifxml(file_path='testing/lecture_example2.BIFXML') ## fill that bitch up with data
-bnetBefore = copy.deepcopy(bnet)
-print(bnet.get_all_variables())
-prune_network(bnet, evidence, query)
-print(bnet.get_all_variables())
+#bnet = BayesNet() ## make empty network
+#bnet.load_from_bifxml(file_path='testing/lecture_example2.BIFXML') ## fill that bitch up with data
+#bnetBefore = copy.deepcopy(bnet)
+#print(bnet.get_all_variables())
+#prune_network(bnet, evidence, query)
+#print(bnet.get_all_variables())

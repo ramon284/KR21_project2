@@ -1,4 +1,3 @@
-from BNReasoner import BNReasoner
 from BayesNet import BayesNet
 from typing import Union 
 from collections import deque
@@ -8,7 +7,7 @@ import pruner
 filePath = 'testing/dog_problem.BIFXML' ## filepath
 
 
-def dSeperator(network : BayesNet, x: set,z: set,y: set):
+def check_dseperated(network : BayesNet, x: set,z: set,y: set) -> bool:
     # union = x.union(y).union(z)
     # l_nodes = deque() ## we begin by pruning
     # nodes = network.get_all_variables()
@@ -26,7 +25,7 @@ def dSeperator(network : BayesNet, x: set,z: set,y: set):
     
     pruner.prune(network, z, x.union(y)) ## idk if this works identically.
                                           ## because it prunes less, basically.
-    bnet.draw_structure()
+    network.draw_structure()
     
     ## now for the pruning
     network.del_all_edges_from(network.get_outer_edges(z))
@@ -38,17 +37,17 @@ def dSeperator(network : BayesNet, x: set,z: set,y: set):
     union_diagram.union(*y)
 
     if (x and y and union_diagram[next(iter(x))] == union_diagram[next(iter(y))]):
-        print("False")
+        print("False, not d-seperated by : ", z)
         return False
     else:
-        print('True')
+        print('True, d-seperated by : ', z)
         return True 
 
 
-bnet = BayesNet() ## make empty network
-bnet.load_from_bifxml(file_path=filePath) ## fill that bitch up with data
-x, z, y = {"light-on"}, {"dog-out"}, {"bowel-problem"}
-bnet.draw_structure() ## draw the graph
-dSeperator(bnet, x,z,y)
-bnet.get_interaction_graph() ## get interaction graph (idk what this does tbh)
-bnet.draw_structure() ## draw the graph
+#bnet = BayesNet() ## make empty network
+#bnet.load_from_bifxml(file_path=filePath) ## fill that bitch up with data
+#x, z, y = {"light-on"}, {"family-out"}, {"dog-out"}
+#bnet.draw_structure() ## draw the graph
+#check_dseperated(bnet, x,z,y)
+#bnet.get_interaction_graph() ## get interaction graph (idk what this does tbh)
+#bnet.draw_structure() ## draw the graph

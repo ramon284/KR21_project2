@@ -1,7 +1,7 @@
 from BayesNet import BayesNet
-from typing import Union 
-from collections import deque
-from networkx.utils import UnionFind
+#from typing import Union 
+#from collections import deque
+#from networkx.utils import UnionFind
 import pruner
 
 
@@ -23,7 +23,7 @@ def check_dseperated(network : BayesNet, x: set,z: set,y: set) -> bool:
     
     pruner.prune(network, z, x.union(y)) ## idk if this works identically.
                                           ## because it prunes less, basically.
-    network.draw_structure()
+    #network.draw_structure()
     
     ## now for the pruning
     network.del_all_edges_from(network.get_outer_edges(z))

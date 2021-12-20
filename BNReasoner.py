@@ -4,6 +4,7 @@ import ordering_func
 import dsep
 import copy
 import pruner
+import marginal_distribution
 
 class BNReasoner:
     def __init__(self, net: Union[str, BayesNet]):
@@ -22,7 +23,7 @@ class BNReasoner:
         tempCopy = copy.deepcopy(network) ##to prevent pruning the original network
         return dsep.check_dseperated(tempCopy,x,z,y)
     
-    def ordering(self, network, x, order_type):
+    def ordering(self, network: BayesNet, x:list, order_type:str) -> list:
         ## order x based on min-fill and min-degree heuristics
         output = None
         if (order_type == 'random'):
@@ -42,8 +43,9 @@ class BNReasoner:
         pruner.prune_network(pruned_network, evidence, query)
         return pruned_network
     
-    def marginalDistributions(self, network, q, e):
-        return
+    def marginalDistributions(self, network, q, e, heuristic):
+        network_copy = copy.deepcopy(network)
+        return marginal_distribution.marginal_distribution(network_copy,q,e,heuristic)
     
     def MAP(self, network, q, e):
         return

@@ -1,5 +1,4 @@
 import copy
-from typing import List, Union
 from BayesNet import BayesNet
 
 def prune(network: BayesNet, evidence: set, query: set) -> None: 
@@ -17,7 +16,7 @@ def prune_edges(network: BayesNet, evidence: set) -> None:
         for edge in edges:
             network.del_edge((node, edge))
 
-def get_leaves(network: BayesNet) -> List:
+def get_leaves(network: BayesNet) -> list:
     leaves = [] 
     nodes = set(network.get_all_variables())
     for node in nodes: 

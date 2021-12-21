@@ -46,8 +46,8 @@ class BNReasoner:
     def marginalDistributions(self, network:BayesNet, q:set, e:dict, heuristic:str) -> BayesNet:
         return marginal_distribution.marginal_distribution(network,q,e,heuristic)
     
-    def MAP(self, network, q, e):
-        return
+    def MAP(self, network:BayesNet, q:set, e:dict, heuristic:str) -> (dict,dict):
+        return map_mpe.map(network,q,e,heuristic)
     
     def MPE(self, network:BayesNet, q:set, e:dict, heuristic:str) -> (dict,dict):
         return map_mpe.mpe(network,e,heuristic)

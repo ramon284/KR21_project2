@@ -20,8 +20,7 @@ class BNReasoner:
             self.bn = net
         
     def dSeperator(self, network : BayesNet, x: set ,z: set ,y: set) -> bool:
-        tempCopy = copy.deepcopy(network) ##to prevent pruning the original network
-        return dsep.check_dseperated(tempCopy,x,z,y)
+        return dsep.check_dseperated(network,x,z,y)
     
     def ordering(self, network: BayesNet, x:list, order_type:str) -> list:
         ## order x based on min-fill and min-degree heuristics
@@ -40,12 +39,11 @@ class BNReasoner:
     def networkPruning(self, network: BayesNet, evidence: set, query: set) -> BayesNet: 
         ## set of variables Q and evidence E
         pruned_network = copy.deepcopy(network)
-        pruner.prune_network(pruned_network, evidence, query)
+        pruned_network = pruner.prune_network(pruned_network, evidence, query)
         return pruned_network
     
     def marginalDistributions(self, network, q, e, heuristic):
-        network_copy = copy.deepcopy(network)
-        return marginal_distribution.marginal_distribution(network_copy,q,e,heuristic)
+        return marginal_distribution.marginal_distribution(network,q,e,heuristic)
     
     def MAP(self, network, q, e):
         return

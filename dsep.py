@@ -3,6 +3,7 @@ from BayesNet import BayesNet
 #from collections import deque
 #from networkx.utils import UnionFind
 import pruner
+import copy
 
 
 def check_dseperated(network : BayesNet, x: set,z: set,y: set) -> bool:
@@ -21,7 +22,8 @@ def check_dseperated(network : BayesNet, x: set,z: set,y: set) -> bool:
     #                 l_nodes.append(parent)
     #         network.del_var(l)
     
-    pruner.prune(network, z, x.union(y)) ## idk if this works identically.
+    network = copy.deepcopy(network)
+    network = pruner.prune(network, z, x.union(y)) ## idk if this works identically.
                                           ## because it prunes less, basically.
     #network.draw_structure()
     

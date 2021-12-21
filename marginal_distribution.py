@@ -47,7 +47,7 @@ def multiply_cpt(cpt1: pd.DataFrame, cpt2: pd.DataFrame) -> pd.DataFrame:
 		for col in col1:
 			if col in col2:
 				common_vars.append(col)
-
+	
 	merged_cpts = pd.merge(cpt1_copy, cpt2_copy, on=common_vars)
 	merged_cpts['p'] = merged_cpts['p_x'] * merged_cpts['p_y']
 	merged_cpts.drop(['p_x', 'p_y'], inplace=True, axis=1)
@@ -55,11 +55,11 @@ def multiply_cpt(cpt1: pd.DataFrame, cpt2: pd.DataFrame) -> pd.DataFrame:
 	return merged_cpts
 
 def return_cpts_with_var(cpt_dict: dict, var:str) -> dict:
-	cpt_dict_var = {var:[]}
+	cpt_dict_var = {}
 
 	for variable,cpt in cpt_dict.items():
 		if var in cpt.columns:
-			cpt_dict_var[var].append(cpt)
+			cpt_dict_var[variable] = cpt
 
 	return cpt_dict_var
 
@@ -76,13 +76,13 @@ def marginal_distribution(network: BayesNet, query:set, evidence:dict, heuristic
 	diff_var_list = list(set(bn_var_list) - query)
 
 	if(heuristic=="random"):
-		print("heuristic used : random")
+		#print("heuristic used : random")
 		o_diff_var_list = ordering.random_sort(diff_var_list)
 	elif(heuristic=="min-degree"):
-		print("heuristic used : min-degree")
+		#print("heuristic used : min-degree")
 		o_diff_var_list = ordering.sort_min_degree(network.get_interaction_graph(),diff_var_list)
 	else:
-		print("heuristic used : min-fill")
+		#print("heuristic used : min-fill")
 		o_diff_var_list = ordering.sort_min_fill(network.get_interaction_graph(), diff_var_list)
 
 	all_cpts = network.get_all_cpts()
@@ -96,12 +96,10 @@ def marginal_distribution(network: BayesNet, query:set, evidence:dict, heuristic
 		cpts_with_var = return_cpts_with_var(all_cpts, var)
 		cpts_list = []
 		for key,value in cpts_with_var.items():
-			for cpt in value:
-				cpts_list.append(cpt)
+			cpts_list.append(value)
 		prod = cpts_list[0]
-		if(len(cpts_list)>1):
-			for i in range(len(cpts_list) - 1):
-				prod = multiply_cpt(prod, cpts_list[i+1])
+		for i in range(len(cpts_with_var) - 1):
+			prod = multiply_cpt(prod, cpts_list[i+1])
 		prod_sum = summing_var(prod,var)
 		for variable,cpt in cpts_with_var.items():
 			del all_cpts[variable]
@@ -116,7 +114,7 @@ def marginal_distribution(network: BayesNet, query:set, evidence:dict, heuristic
 		marginalised_cpt = multiply_cpt(marginalised_cpt,all_cpts_list[i+1])
 
 	if evidence:
-		evidence_vars_cpt = marginal_distribution(network,set(evidence.keys()),{})
+		evidence_vars_cpt = marginal_distribution(network,set(evidence.keys()),{},'random')
 		for var, evidence_bool in evidence.items():
 			evidence_vars_cpt = evidence_vars_cpt[evidence_vars_cpt[var] == evidence_bool]
 

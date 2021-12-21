@@ -5,6 +5,7 @@ import dsep
 import copy
 import pruner
 import marginal_distribution
+import map_mpe
 
 class BNReasoner:
     def __init__(self, net: Union[str, BayesNet]):
@@ -42,14 +43,14 @@ class BNReasoner:
         pruned_network = pruner.prune_network(pruned_network, evidence, query)
         return pruned_network
     
-    def marginalDistributions(self, network, q, e, heuristic):
+    def marginalDistributions(self, network:BayesNet, q:set, e:dict, heuristic:str) -> BayesNet:
         return marginal_distribution.marginal_distribution(network,q,e,heuristic)
     
     def MAP(self, network, q, e):
         return
     
-    def MPE(self, network, q, e):
-        return
+    def MPE(self, network:BayesNet, q:set, e:dict, heuristic:str) -> (dict,dict):
+        return map_mpe.mpe(network,e,heuristic)
 
     # TODO: This is where your methods should go
 

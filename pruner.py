@@ -17,7 +17,8 @@ def prune_edges(network: BayesNet, evidence: set) -> BayesNet:
         for u, v in network.structure.edges(nbunch=evidence):
             edges.append(v)
         for edge in edges:
-            network.del_edge((node, edge))
+            if (node,edge) in network.structure.edges:
+                network.del_edge((node, edge))
     return network
 
 def get_leaves(network: BayesNet) -> list:

@@ -23,7 +23,7 @@ class BNReasoner:
     def dSeperator(self, network : BayesNet, x: set ,z: set ,y: set) -> bool:
         return dsep.check_dseperated(network,x,z,y)
     
-    def ordering(self, network: BayesNet, x:list, order_type:str) -> list:
+    def ordering(self, network: BayesNet, x:list, order_type:str='random') -> list:
         ## order x based on min-fill and min-degree heuristics
         output = None
         if (order_type == 'random'):
@@ -43,13 +43,13 @@ class BNReasoner:
         pruned_network = pruner.prune_network(pruned_network, evidence, query)
         return pruned_network
     
-    def marginalDistributions(self, network:BayesNet, q:set, e:dict, heuristic:str) -> BayesNet:
+    def marginalDistributions(self, network:BayesNet, q:set, e:dict, heuristic:str='random') -> BayesNet:
         return marginal_distribution.marginal_distribution(network,q,e,heuristic)
     
-    def MAP(self, network:BayesNet, q:set, e:dict, heuristic:str) -> (dict,dict):
+    def MAP(self, network:BayesNet, q:set, e:dict, heuristic:str='random') -> (dict,dict):
         return map_mpe.map(network,q,e,heuristic)
     
-    def MPE(self, network:BayesNet, q:set, e:dict, heuristic:str) -> (dict,dict):
+    def MPE(self, network:BayesNet,e:dict, heuristic:str='random') -> (dict,dict):
         return map_mpe.mpe(network,e,heuristic)
 
     # TODO: This is where your methods should go

@@ -83,6 +83,8 @@ def mpe(network:BayesNet, evidence:dict, heuristic:str = 'min-degree') -> (dict,
 		cpts_list = []
 		for key,value in cpts_with_var.items():
 			cpts_list.append(value)
+		if(len(cpts_list) == 0):
+			continue
 		prod = cpts_list[0]
 		len_cpts_list = len(cpts_list)
 		if(len_cpts_list > 1):
@@ -138,7 +140,7 @@ def map(network:BayesNet, query:set, evidence:dict, heuristic:str = 'min-degree'
 		if var in list(query):
 			prod, z_dict[var] = max_out(prod, [var])
 		else:
-			prod = sum_out(prod,[var])
+			prod = marginal_distribution.summing_var(prod,var)
 
 		for key in cpts_with_var.keys():
 			cpts_dict.pop(key)

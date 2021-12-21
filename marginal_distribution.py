@@ -19,7 +19,11 @@ def summing_var(cpt: pd.DataFrame, var: str) -> pd.DataFrame:
 		if col != 'p':
 			cols.append(col)
 
-	summed_cpt = pd.concat([true_rows, false_rows]).groupby(cols, as_index=False)["p"].sum()
+	if(cols):
+		summed_cpt = pd.concat([true_rows, false_rows]).groupby(cols, as_index=False)["p"].sum()
+	else:
+		summed_cpt = pd.DataFrame()
+		summed_cpt['p'] = 0
 	return summed_cpt
 
 def multiply_cpt(cpt1: pd.DataFrame, cpt2: pd.DataFrame) -> pd.DataFrame:
@@ -87,6 +91,8 @@ def marginal_distribution(network: BayesNet, query:set, evidence:dict, heuristic
 		cpts_list = []
 		for key,value in cpts_with_var.items():
 			cpts_list.append(value)
+		if(len(cpts_list) == 0):
+			continue
 		prod = cpts_list[0]
 		len_cpts_list = len(cpts_list)
 		if(len_cpts_list > 1):

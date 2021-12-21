@@ -1,0 +1,170 @@
+<?xml version="1.0" ?>
+
+<BIF VERSION="0.3">
+<NETWORK>
+<NAME>unnamedBN</NAME>
+<PROPERTY>software aGrUM</PROPERTY>
+
+<!-- Variables -->
+<VARIABLE TYPE="nature">
+	<NAME>Allergy</NAME>
+	<PROPERTY>Allergy</PROPERTY>
+	<OUTCOME>0</OUTCOME>
+	<OUTCOME>1</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>Lung Cancer</NAME>
+	<PROPERTY>Lung Cancer</PROPERTY>
+	<OUTCOME>0</OUTCOME>
+	<OUTCOME>1</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>Stress</NAME>
+	<PROPERTY>Stress</PROPERTY>
+	<OUTCOME>0</OUTCOME>
+	<OUTCOME>1</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>Smoking</NAME>
+	<PROPERTY>Smoking</PROPERTY>
+	<OUTCOME>0</OUTCOME>
+	<OUTCOME>1</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>Genetics</NAME>
+	<PROPERTY>Genetics</PROPERTY>
+	<OUTCOME>0</OUTCOME>
+	<OUTCOME>1</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>Yellow Fingers</NAME>
+	<PROPERTY>Yellow Fingers</PROPERTY>
+	<OUTCOME>0</OUTCOME>
+	<OUTCOME>1</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>Cough</NAME>
+	<PROPERTY>Cough</PROPERTY>
+	<OUTCOME>0</OUTCOME>
+	<OUTCOME>1</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>Fatigue</NAME>
+	<PROPERTY>Fatigue</PROPERTY>
+	<OUTCOME>0</OUTCOME>
+	<OUTCOME>1</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>Car Accident</NAME>
+	<PROPERTY>Car Accident</PROPERTY>
+	<OUTCOME>0</OUTCOME>
+	<OUTCOME>1</OUTCOME>
+</VARIABLE>
+
+<VARIABLE TYPE="nature">
+	<NAME>Attention Disorder</NAME>
+	<PROPERTY>Attention Disorder</PROPERTY>
+	<OUTCOME>0</OUTCOME>
+	<OUTCOME>1</OUTCOME>
+</VARIABLE>
+
+<!-- Probability distributions -->
+<DEFINITION>
+	<FOR>Allergy</FOR>
+	<TABLE>
+		0.8 0.2
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>Lung Cancer</FOR>
+	<GIVEN>Allergy</GIVEN>
+	<GIVEN>Smoking</GIVEN>
+	<GIVEN>Genetics</GIVEN>
+	<TABLE>
+		0.9 0.1
+		0.7 0.3
+		0.7 0.3
+		0.5 0.5
+		0.8 0.2
+		0.65 0.35
+		0.6 0.4
+		0.35 0.55
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>Stress</FOR>
+	<TABLE>
+		0.6 0.4
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>Smoking</FOR>
+	<GIVEN>Stress</GIVEN>
+	<TABLE>
+		0.75 0.25
+		0.5 0.5
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>Genetics</FOR>
+	<TABLE>
+		0.7 0.3
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>Yellow Fingers</FOR>
+	<GIVEN>Smoking</GIVEN>
+	<TABLE>
+		0.95 0.05
+		0.4 0.6
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>Cough</FOR>
+	<GIVEN>Allergy</GIVEN>
+	<GIVEN>Smoking</GIVEN>
+	<TABLE>
+		0.9 0.1
+		0.5 0.5
+		0.7 0.3
+		0.4 0.6
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>Fatigue</FOR>
+	<GIVEN>Cough</GIVEN>
+	<TABLE>
+		0.752408 0.247592
+		0.435357 0.564643
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>Car Accident</FOR>
+	<GIVEN>Fatigue</GIVEN>
+	<GIVEN>Attention Disorder</GIVEN>
+	<TABLE>
+		0.83962 0.16038
+		0.4 0.6
+		0.3 0.7
+		0.1 0.9
+	</TABLE>
+</DEFINITION>
+<DEFINITION>
+	<FOR>Attention Disorder</FOR>
+	<GIVEN>Genetics</GIVEN>
+	<TABLE>
+		0.9 0.1
+		0.5 0.5
+	</TABLE>
+</DEFINITION>
+
+</NETWORK>
+</BIF>
